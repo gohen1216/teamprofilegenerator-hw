@@ -11,8 +11,55 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+let employees =[]
+function askManagerQuestions(){
+    return inquirer.prompt([
+        {
+            name: 'name',   
+            message: 'What is the name of the manager?',
+          },
+          
+          {
+              name: 'email',
+              message: 'what is the managers email?',
+            },
+          
+            {
+              name: 'ID',
+              message: 'what is the managers employees ID?',
+            },
+          
+            {
+              name: 'officenumber',
+              message: 'what is the managers officenumbers?',
+            },
+          
+        
+    ])
+}
 
+function askChoiceQuestions(){
+    return inquirer.prompt([{
+        name: 'empchoice',   
+        message: 'What type of employee would you like to add?',
+        type:"list",
+        choices:["engineer","intern","finished adding employees"]
+    }
+]).then(answers=>{
+    switch(answers.empchoice){
+        case "engineer":
+            console.log ("asking engineer questions")
+            return askChoiceQuestions()
+            break;
+            case "intern":
+            console.log ("asking intern questions")
+            return askChoiceQuestions()
+            break;
+            default: return
 
+    }
+})
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -35,3 +82,9 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+askManagerQuestions().then(answers=>{
+employees.push(new Manager(answers.name,answers.ID,answers.email,answers.officenumber))
+askChoiceQuestions().then(()=>{
+    console.log (employees)
+})
+})
