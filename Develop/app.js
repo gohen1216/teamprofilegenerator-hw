@@ -37,7 +37,62 @@ function askManagerQuestions(){
         
     ])
 }
-
+function askEngineerQuestions(){
+    return inquirer.prompt([
+        {
+            name: 'name',   
+            message: 'What is the name of the engineer?',
+          },
+          
+          {
+              name: 'email',
+              message: 'what is the engineers email?',
+            },
+          
+            {
+              name: 'ID',
+              message: 'what is the engineers employees ID?',
+            },
+          
+            {
+              name: 'Github',
+              message: 'what is the engineers Github ID?',
+            },
+          
+        
+    ]).then(answers=>{
+        employees.push(new Engineer(answers.name,answers.ID,answers.email,answers.Github))
+        return askChoiceQuestions()
+    })
+}
+function askInternQuestions(){
+    return inquirer.prompt([
+        {
+            name: 'name',   
+            message: 'What is the name of the intern?',
+          },
+          
+          {
+              name: 'email',
+              message: 'what is the interns email?',
+            },
+          
+            {
+              name: 'ID',
+              message: 'what is the intern employees ID?',
+            },
+          
+            {
+              name: 'school',
+              message: 'what is the interns school?',
+            },
+          
+        
+    ]).then(answers=>{
+        employees.push(new Intern(answers.name,answers.ID,answers.email,answers.school))
+        return askChoiceQuestions()
+    })
+}
 function askChoiceQuestions(){
     return inquirer.prompt([{
         name: 'empchoice',   
@@ -48,14 +103,16 @@ function askChoiceQuestions(){
 ]).then(answers=>{
     switch(answers.empchoice){
         case "engineer":
-            console.log ("asking engineer questions")
-            return askChoiceQuestions()
+          return  askEngineerQuestions()
             break;
             case "intern":
             console.log ("asking intern questions")
-            return askChoiceQuestions()
+            return askInternQuestions()
             break;
-            default: return
+            default: 
+            console.log (employees)
+           const html = render(employees)
+           console.log(html)
 
     }
 })
@@ -84,7 +141,7 @@ function askChoiceQuestions(){
 // for the provided `render` function to work! ```
 askManagerQuestions().then(answers=>{
 employees.push(new Manager(answers.name,answers.ID,answers.email,answers.officenumber))
-askChoiceQuestions().then(()=>{
-    console.log (employees)
-})
+return askChoiceQuestions()
+
+   
 })
