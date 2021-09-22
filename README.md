@@ -22,7 +22,7 @@
  
   ## Usage
   
-  npm start
+  node app.js
   
   ## Contributing
 
@@ -30,7 +30,10 @@
   
   ## Test
   
-  Npm start
+
+https://user-images.githubusercontent.com/78391981/134410302-ca8cdeb0-824b-44d1-8c85-f95a8adddaa9.mp4
+
+
 
   ## License
   MIT
