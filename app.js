@@ -113,7 +113,7 @@ function askChoiceQuestions(){
             console.log (employees)
            const html = render(employees)
            console.log(html)
-
+           fs.writeFileSync("output/index.html",html)
     }
 })
 }
